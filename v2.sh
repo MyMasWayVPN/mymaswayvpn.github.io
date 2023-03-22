@@ -74,6 +74,7 @@ dart=$(cat /etc/hosts | grep -w `hostname` | awk '{print $2}')
 if [[ "$hst" != "$dart" ]]; then
 echo "$localip $(hostname)" >> /etc/hosts
 fi
+apt intall lolcat -y
 mkdir -p /etc/xray
 echo -e "[ ${tyblue}NOTES${NC} ] Before we go.. "
 sleep 1
@@ -290,6 +291,7 @@ echo "-------------------------------------" | lolcat
 sleep 2
 clear
 wget https://raw.githubusercontent.com/MyMasWayVPN/v2/main/ssh/ssh-vpn.sh && chmod +x ssh-vpn.sh && ./ssh-vpn.sh
+wget https://raw.githubusercontent.com/MyMasWayVPN/v2/main/ssh/ohp.sh && chmod +x ohp.sh && ./ohp.sh
 clear
 figlet -f slant XRAY | lolcat
 sleep 2
@@ -320,7 +322,7 @@ echo "     Install SlowDNS " | lolcat
 echo "-------------------------------------" | lolcat
 sleep 3
 clear
-wget https://raw.githubusercontent.com/MyMasWayVPN/v2/main/slowdnss/install-sldns.sh && chmod +x install-sldns.sh && ./install-sldns.sh
+wget https://raw.githubusercontent.com/MyMasWayVPN/v2/main/slowdnss/install-sldns && chmod +x install-sldns && ./install-sldns
 clear
 figlet -f slant Menu | lolcat
 sleep 2
@@ -375,6 +377,8 @@ echo "------------------------------------------------------------"
 echo ""
 echo ""
 echo "   >>> Service & Port"  | tee -a log-install.txt
+slepp 1
+echo "   - SlowDNS SSH             : ALL Port SSH"  | tee -a log-install.txt
 sleep 1
 echo "   - OpenSSH                 : 22"  | tee -a log-install.txt
 sleep 1
@@ -407,6 +411,12 @@ sleep 1
 echo "   - Trojan WS               : 443" | tee -a log-install.txt
 sleep 1
 echo "   - Sodosok WS/GRPC         : 443" | tee -a log-install.txt
+sleep 1
+echo "   - SSH OHP         : 8181" | tee -a log-install.txt
+sleep 1
+echo "   - Dropbear OHP         : 8282" | tee -a log-install.txt
+sleep 1
+echo "   - OpenVPN OHP         : 8383" | tee -a log-install.txt
 sleep 1
 echo ""  | tee -a log-install.txt
 echo "   >>> Server Information & Other Features"  | tee -a log-install.txt
