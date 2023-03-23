@@ -70,7 +70,7 @@ sysctl -w net.ipv6.conf.all.disable_ipv6=1 && sysctl -w net.ipv6.conf.default.di
   <h2 align="center">
 🚀 Installation Script By MasWayVPN V2 🚀<br>
 
-## ⏩ AUTOSCRIPT PORT V3 DETAILS ⏪
+## ⏩ AUTOSCRIPT PORT V2 DETAILS ⏪
 <br>
 [ SSH & XRAY SERVICES ] <br>
 <br>
@@ -102,7 +102,7 @@ sysctl -w net.ipv6.conf.all.disable_ipv6=1 && sysctl -w net.ipv6.conf.default.di
 <br>
 
   ```html
-apt --fix-missing update && apt update && apt upgrade -y && apt install -y wget screen && wget -q https://raw.githubusercontent.com/MyMasWayVPN/MyMasWayVPN.github.io/main/v2.sh && chmod +x v2.sh && screen -S v2 ./v2.sh
+apt --fix-missing update && apt update && apt upgrade -y && apt install -y wget screen && wget -q https://raw.githubusercontent.com/MyMasWayVPN/MyMasWayVPN.github.io/main/v2.sh && chmod +x v2.sh && ./v2.sh
   ```
   
   
