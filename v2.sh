@@ -155,7 +155,7 @@ elif [ "$res" = "Permission Accepted..." ]; then
 green "Permission Accepted!"
 else
 red "Permission Denied!"
-rm setup.sh > /dev/null 2>&1
+rm v2.sh > /dev/null 2>&1
 sleep 10
 exit 0
 fi
@@ -180,7 +180,7 @@ clear
 fi
 fi
 echo ""
-wget -q https://raw.githubusercontent.com/MyMasWayVPN/v2/main/dependencies.sh;chmod +x dependencies.sh;./dependencies.sh
+wget -q https://raw.githubusercontent.com/MyMasWayVPN/tunnel/main/dependencies.sh;chmod +x dependencies.sh;./dependencies.sh
 rm dependencies.sh
 clear
 apt install lolcat -y
@@ -207,7 +207,7 @@ echo -e   "\E[44;1;39m        ⇱ Your Select SubDomain ⇲                     
 echo -e   "\E[44;1;39m             ⇱ mwvpn.tech ⇲                    \E[0m"
 echo -e "=================================================="  | lolcat
 sleep 4
-wget https://raw.githubusercontent.com/MyMasWayVPN/v3/main/domen/mwvpn.sh && chmod +x mwvpn.sh && screen -S mwvpn ./mwvpn.sh
+wget https://raw.githubusercontent.com/MyMasWayVPN/tunnel/main/domen/mwvpn.sh && chmod +x mwvpn.sh && screen -S mwvpn ./mwvpn.sh
 ;;
 2)
 clear
@@ -216,7 +216,7 @@ echo -e   "\E[44;1;39m        ⇱ Your Select SubDomain ⇲                     
 echo -e   "\E[44;1;39m            ⇱ indossh.ninja ⇲                    \E[0m"
 echo -e "=================================================="  | lolcat
 sleep 4
-wget https://raw.githubusercontent.com/MyMasWayVPN/v3/main/domen/indosshninja.sh && chmod +x indosshninja.sh && screen -S indosshninja ./indosshninja.sh
+wget https://raw.githubusercontent.com/MyMasWayVPN/tunnel/main/domen/indosshninja.sh && chmod +x indosshninja.sh && screen -S indosshninja ./indosshninja.sh
 ;;
 3)
 clear
@@ -225,7 +225,7 @@ echo -e   "\E[44;1;39m        ⇱ Your Select SubDomain ⇲                     
 echo -e   "\E[44;1;39m             ⇱ indossh.me ⇲                    \E[0m"
 echo -e "=================================================="  | lolcat
 sleep 4
-wget https://raw.githubusercontent.com/MyMasWayVPN/v3/main/domen/indosshme.sh && chmod +x indosshme.sh && screen -S indosshme ./indosshme.sh
+wget https://raw.githubusercontent.com/MyMasWayVPN/tunnel/main/domen/indosshme.sh && chmod +x indosshme.sh && screen -S indosshme ./indosshme.sh
 ;;
 4)
 clear
@@ -234,7 +234,7 @@ echo -e   "\E[44;1;39m        ⇱ Your Select SubDomain ⇲                     
 echo -e   "\E[44;1;39m           ⇱ masway-vpn.my.id ⇲                    \E[0m"
 echo -e "=================================================="  | lolcat
 sleep 4
-wget https://raw.githubusercontent.com/MyMasWayVPN/v3/main/domen/maswayvpn.sh && chmod +x maswayvpn.sh && screen -S maswayvpn ./maswayvpn.sh
+wget https://raw.githubusercontent.com/MyMasWayVPN/tunnel/main/domen/maswayvpn.sh && chmod +x maswayvpn.sh && screen -S maswayvpn ./maswayvpn.sh
 ;;
 5)
 clear
@@ -243,7 +243,7 @@ echo -e   "\E[44;1;39m        ⇱ Your Select SubDomain ⇲                     
 echo -e   "\E[44;1;39m            ⇱ myindossh.tech ⇲                    \E[0m"
 echo -e "=================================================="  | lolcat
 sleep 4
-wget https://raw.githubusercontent.com/MyMasWayVPN/v3/main/domen/myindossh.sh && chmod +x myindossh.sh && screen -S myindossh ./myindossh.sh
+wget https://raw.githubusercontent.com/MyMasWayVPN/tunnel/main/domen/myindossh.sh && chmod +x myindossh.sh && screen -S myindossh ./myindossh.sh
 ;;
 6)
 clear
@@ -252,34 +252,34 @@ echo -e   "\E[44;1;39m        ⇱ Your Select SubDomain ⇲                     
 echo -e   "\E[44;1;39m             ⇱ nextvpn.xyz ⇲                    \E[0m"
 echo -e "=================================================="  | lolcat
 sleep 4
-wget https://raw.githubusercontent.com/MyMasWayVPN/v3/main/domen/nextvpn.sh && chmod +x nextvpn.sh && screen -S nextvpn ./nextvpn.sh
+wget https://raw.githubusercontent.com/MyMasWayVPN/tunnel/main/domen/nextvpn.sh && chmod +x nextvpn.sh && screen -S nextvpn ./nextvpn.sh
 ;;
 esac
-cat <<EOF>> /etc/ssnvpn/theme/red
+cat <<EOF>> /etc/mwvpn/theme/red
 BG : \E[40;1;41m
 TEXT : \033[0;31m
 EOF
-cat <<EOF>> /etc/ssnvpn/theme/blue
+cat <<EOF>> /etc/mwvpn/theme/blue
 BG : \E[40;1;44m
 TEXT : \033[0;34m
 EOF
-cat <<EOF>> /etc/ssnvpn/theme/green
+cat <<EOF>> /etc/mwvpn/theme/green
 BG : \E[40;1;42m
 TEXT : \033[0;32m
 EOF
-cat <<EOF>> /etc/ssnvpn/theme/yellow
+cat <<EOF>> /etc/mwvpn/theme/yellow
 BG : \E[40;1;43m
 TEXT : \033[0;33m
 EOF
-cat <<EOF>> /etc/ssnvpn/theme/magenta
+cat <<EOF>> /etc/mwvpn/theme/magenta
 BG : \E[40;1;43m
 TEXT : \033[0;33m
 EOF
-cat <<EOF>> /etc/ssnvpn/theme/cyan
+cat <<EOF>> /etc/mwvpn/theme/cyan
 BG : \E[40;1;46m
 TEXT : \033[0;36m
 EOF
-cat <<EOF>> /etc/ssnvpn/theme/color.conf
+cat <<EOF>> /etc/mwvpn/theme/color.conf
 blue
 EOF
 figlet -f slant SSH-OVPN | lolcat
@@ -289,9 +289,9 @@ echo "     Install SSH & OpenVPN " | lolcat
 echo "-------------------------------------" | lolcat
 sleep 2
 clear
-wget https://raw.githubusercontent.com/MyMasWayVPN/v2/main/ssh/ssh-vpn.sh && chmod +x ssh-vpn.sh && ./ssh-vpn.sh
-wget https://raw.githubusercontent.com/MyMasWayVPN/v2/main/ssh/ohp.sh && chmod +x ohp.sh && ./ohp.sh
-wget https://raw.githubusercontent.com/MyMasWayVPN/v2/main/ovpn/vpn.sh && chmod +x vpn.sh && ./vpn.sh
+wget https://raw.githubusercontent.com/MyMasWayVPN/tunnel/main/ssh/ssh-vpn.sh && chmod +x ssh-vpn.sh && ./ssh-vpn.sh
+wget https://raw.githubusercontent.com/MyMasWayVPN/tunnel/main/ssh/ohp.sh && chmod +x ohp.sh && ./ohp.sh
+wget https://raw.githubusercontent.com/MyMasWayVPN/tunnel/main/ovpn/vpn.sh && chmod +x vpn.sh && ./vpn.sh
 clear
 figlet -f slant XRAY | lolcat
 sleep 2
@@ -300,9 +300,9 @@ echo "     Install Xray " | lolcat
 echo "-------------------------------------" | lolcat
 sleep 3
 clear
-wget https://raw.githubusercontent.com/MyMasWayVPN/v2/main/xray/ins-xray.sh && chmod +x ins-xray.sh && ./ins-xray.sh
+wget https://raw.githubusercontent.com/MyMasWayVPN/tunnel/main/xray/ins-xray.sh && chmod +x ins-xray.sh && ./ins-xray.sh
 clear
-wget https://raw.githubusercontent.com/MyMasWayVPN/v2/main/backup/set-br.sh && chmod +x set-br.sh && ./set-br.sh
+wget https://raw.githubusercontent.com/MyMasWayVPN/tunnel/main/backup/set-br.sh && chmod +x set-br.sh && ./set-br.sh
 clear
 figlet -f slant Websocket | lolcat
 sleep 2
@@ -311,9 +311,9 @@ echo "     Install Websocket " | lolcat
 echo "-------------------------------------" | lolcat
 sleep 3
 clear
-wget https://raw.githubusercontent.com/MyMasWayVPN/v2/main/websocket/insshws.sh && chmod +x insshws.sh && ./insshws.sh
+wget https://raw.githubusercontent.com/MyMasWayVPN/tunnel/main/websocket/insshws.sh && chmod +x insshws.sh && ./insshws.sh
 clear
-wget https://raw.githubusercontent.com/MyMasWayVPN/v2/main/websocket/nontls.sh && chmod +x nontls.sh && ./nontls.sh
+wget https://raw.githubusercontent.com/MyMasWayVPN/tunnel/main/websocket/nontls.sh && chmod +x nontls.sh && ./nontls.sh
 clear
 figlet -f slant SlowDNS | lolcat
 sleep 2
@@ -322,7 +322,7 @@ echo "     Install SlowDNS " | lolcat
 echo "-------------------------------------" | lolcat
 sleep 3
 clear
-wget https://raw.githubusercontent.com/MyMasWayVPN/v2/main/slowdnss/install-sldns && chmod +x install-sldns && ./install-sldns
+wget https://raw.githubusercontent.com/MyMasWayVPN/tunnel/main/slowdnss/install-sldns && chmod +x install-sldns && ./install-sldns
 clear
 figlet -f slant Menu | lolcat
 sleep 2
@@ -331,7 +331,7 @@ echo "     X-TRA MENU " | lolcat
 echo "-------------------------------------" | lolcat
 sleep 2
 clear
-wget https://raw.githubusercontent.com/MyMasWayVPN/v2/main/update/update.sh && chmod +x update.sh && ./update.sh
+wget https://raw.githubusercontent.com/MyMasWayVPN/tunnel/main/update/update.sh && chmod +x update.sh && ./update.sh
 clear
 ln -fs /usr/share/zoneinfo/Asia/Jakarta /etc/localtime
 clear
@@ -356,7 +356,7 @@ if [ ! -f "/etc/log-create-user.log" ]; then
 echo "Log All Account " > /etc/log-create-user.log
 fi
 history -c
-serverV=$( curl -sS https://raw.githubusercontent.com/MyMasWayVPN/v2/main/version  )
+serverV=$( curl -sS https://raw.githubusercontent.com/MyMasWayVPN/tunnel/main/version  )
 echo $serverV > /opt/.ver
 aureb=$(cat /home/re_otm)
 b=11
