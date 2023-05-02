@@ -184,8 +184,9 @@ wget -q https://raw.githubusercontent.com/MyMasWayVPN/tunnel/main/dependencies.s
 rm dependencies.sh
 clear
 apt install lolcat -y
-mkdir /var/lib/tarapkuhing;
-echo "IP=" >> /var/lib/ssnvpn-pro/ipvps.conf
+mkdir /var/lib/mwvpn-pro;
+echo "IP=" >> /var/lib/mwvpn-pro/ipvps.conf
+clear
 echo -e "==================================================" | lolcat
 echo -e   "\E[44;1;39m          ⇱ Select Your Domain ⇲                      \E[0m"
 echo -e   "\E[44;1;39m            ⇱ SC VPS PREMIUM ⇲                    \E[0m"
@@ -196,6 +197,7 @@ echo -e   "[${GREEN} 03 ${NC}]. •indossh.me"
 echo -e   "[${GREEN} 04 ${NC}]. •masway-vpn.my.id"
 echo -e   "[${GREEN} 05 ${NC}]. •myindossh.tech"
 echo -e   "[${GREEN} 06 ${NC}]. •nextvpn.xyz"
+echo -e   "[${GREEN} 07 ${NC}]. •aiosc.me"
 echo -e "==================================================" | lolcat
 read -p   "Select From Options [ 1 - 6 ] : " domen
 echo -e  ""
@@ -207,7 +209,7 @@ echo -e   "\E[44;1;39m        ⇱ Your Select SubDomain ⇲                     
 echo -e   "\E[44;1;39m             ⇱ mwvpn.tech ⇲                    \E[0m"
 echo -e "=================================================="  | lolcat
 sleep 4
-wget https://raw.githubusercontent.com/MyMasWayVPN/tunnel/main/domen/mwvpn.sh && chmod +x mwvpn.sh && screen -S mwvpn ./mwvpn.sh
+wget https://raw.githubusercontent.com/MyMasWayVPN/tunnel/main/domen/mwvpn.sh && chmod +x mwvpn.sh && ./mwvpn.sh
 ;;
 2)
 clear
@@ -216,7 +218,7 @@ echo -e   "\E[44;1;39m        ⇱ Your Select SubDomain ⇲                     
 echo -e   "\E[44;1;39m            ⇱ indossh.ninja ⇲                    \E[0m"
 echo -e "=================================================="  | lolcat
 sleep 4
-wget https://raw.githubusercontent.com/MyMasWayVPN/tunnel/main/domen/indosshninja.sh && chmod +x indosshninja.sh && screen -S indosshninja ./indosshninja.sh
+wget https://raw.githubusercontent.com/MyMasWayVPN/tunnel/main/domen/indosshninja.sh && chmod +x indosshninja.sh && ./indosshninja.sh
 ;;
 3)
 clear
@@ -225,7 +227,7 @@ echo -e   "\E[44;1;39m        ⇱ Your Select SubDomain ⇲                     
 echo -e   "\E[44;1;39m             ⇱ indossh.me ⇲                    \E[0m"
 echo -e "=================================================="  | lolcat
 sleep 4
-wget https://raw.githubusercontent.com/MyMasWayVPN/tunnel/main/domen/indosshme.sh && chmod +x indosshme.sh && screen -S indosshme ./indosshme.sh
+wget https://raw.githubusercontent.com/MyMasWayVPN/tunnel/main/domen/indosshme.sh && chmod +x indosshme.sh && ./indosshme.sh
 ;;
 4)
 clear
@@ -234,7 +236,7 @@ echo -e   "\E[44;1;39m        ⇱ Your Select SubDomain ⇲                     
 echo -e   "\E[44;1;39m           ⇱ masway-vpn.my.id ⇲                    \E[0m"
 echo -e "=================================================="  | lolcat
 sleep 4
-wget https://raw.githubusercontent.com/MyMasWayVPN/tunnel/main/domen/maswayvpn.sh && chmod +x maswayvpn.sh && screen -S maswayvpn ./maswayvpn.sh
+wget https://raw.githubusercontent.com/MyMasWayVPN/tunnel/main/domen/maswayvpn.sh && chmod +x maswayvpn.sh && ./maswayvpn.sh
 ;;
 5)
 clear
@@ -243,7 +245,7 @@ echo -e   "\E[44;1;39m        ⇱ Your Select SubDomain ⇲                     
 echo -e   "\E[44;1;39m            ⇱ myindossh.tech ⇲                    \E[0m"
 echo -e "=================================================="  | lolcat
 sleep 4
-wget https://raw.githubusercontent.com/MyMasWayVPN/tunnel/main/domen/myindossh.sh && chmod +x myindossh.sh && screen -S myindossh ./myindossh.sh
+wget https://raw.githubusercontent.com/MyMasWayVPN/tunnel/main/domen/myindossh.sh && chmod +x myindossh.sh && ./myindossh.sh
 ;;
 6)
 clear
@@ -252,7 +254,16 @@ echo -e   "\E[44;1;39m        ⇱ Your Select SubDomain ⇲                     
 echo -e   "\E[44;1;39m             ⇱ nextvpn.xyz ⇲                    \E[0m"
 echo -e "=================================================="  | lolcat
 sleep 4
-wget https://raw.githubusercontent.com/MyMasWayVPN/tunnel/main/domen/nextvpn.sh && chmod +x nextvpn.sh && screen -S nextvpn ./nextvpn.sh
+wget https://raw.githubusercontent.com/MyMasWayVPN/tunnel/main/domen/nextvpn.sh && chmod +x nextvpn.sh && ./nextvpn.sh
+;;
+7)
+clear
+echo -e "==================================================" | lolcat
+echo -e   "\E[44;1;39m        ⇱ Your Select SubDomain ⇲                      \E[0m"
+echo -e   "\E[44;1;39m             ⇱ aiosc.me ⇲                    \E[0m"
+echo -e "=================================================="  | lolcat
+sleep 4
+wget https://raw.githubusercontent.com/MyMasWayVPN/tunnel/main/domen/aioscme.sh && chmod +x aioscme.sh && ./aioscme.sh
 ;;
 esac
 cat <<EOF>> /etc/mwvpn/theme/red
@@ -395,8 +406,8 @@ echo "   - Trojan GRPC             : 443" | tee -a log-install.txt
 echo "   - Trojan WS               : 443" | tee -a log-install.txt
 echo "   - Sodosok WS/GRPC         : 443" | tee -a log-install.txt
 echo "   - SSH OHP                 : 8181" | tee -a log-install.txt
-echo "   - Dropbear OHP            : 8282" | tee -a log-install.txt
-echo "   - OpenVPN OHP             : 8383" | tee -a log-install.txt
+echo "   - DB OHP            : 8282" | tee -a log-install.txt
+echo "   - OVPN OHP             : 8383" | tee -a log-install.txt
 echo ""  | tee -a log-install.txt
 echo "   >>> Server Information & Other Features"  | tee -a log-install.txt
 echo "   - Timezone                : Asia/Jakarta (GMT +7)"  | tee -a log-install.txt
