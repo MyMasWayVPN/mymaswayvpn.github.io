@@ -209,7 +209,88 @@ echo -e   "\E[44;1;39m        ⇱ Your Select SubDomain ⇲                     
 echo -e   "\E[44;1;39m             ⇱ mwvpn.tech ⇲                    \E[0m"
 echo -e "=================================================="  | lolcat
 sleep 4
-wget https://raw.githubusercontent.com/MyMasWayVPN/tunnel/main/domen/mwvpn.sh && chmod +x mwvpn.sh && ./mwvpn.sh
+MYIP=$(wget -qO- icanhazip.com);
+apt install jq curl -y
+rm -rf /root/nsdomain
+rm nsdomain
+
+sub=$(</dev/urandom tr -dc a-z0-9 | head -c5)
+subns=$(</dev/urandom tr -dc a-x0-9 | head -c5)
+DOMAIN=mwvpn.tech
+SUB_DOMAIN=vip-${sub}.mwvpn.tech
+NS_DOMAIN=ns-${subns}.mwvpn.tech
+CF_ID=akunabal.abal7770@gmail.com
+CF_KEY=4502348bc050806208bb10e3a1af5b9d1d018
+
+set -euo pipefail
+IP=$(wget -qO- icanhazip.com);
+echo "Updating DNS for ${SUB_DOMAIN}..."
+ZONE=$(curl -sLX GET "https://api.cloudflare.com/client/v4/zones?name=${DOMAIN}&status=active" \
+     -H "X-Auth-Email: ${CF_ID}" \
+     -H "X-Auth-Key: ${CF_KEY}" \
+     -H "Content-Type: application/json" | jq -r .result[0].id)
+
+RECORD=$(curl -sLX GET "https://api.cloudflare.com/client/v4/zones/${ZONE}/dns_records?name=${SUB_DOMAIN}" \
+     -H "X-Auth-Email: ${CF_ID}" \
+     -H "X-Auth-Key: ${CF_KEY}" \
+     -H "Content-Type: application/json" | jq -r .result[0].id)
+
+if [[ "${#RECORD}" -le 10 ]]; then
+     RECORD=$(curl -sLX POST "https://api.cloudflare.com/client/v4/zones/${ZONE}/dns_records" \
+     -H "X-Auth-Email: ${CF_ID}" \
+     -H "X-Auth-Key: ${CF_KEY}" \
+     -H "Content-Type: application/json" \
+     --data '{"type":"A","name":"'${SUB_DOMAIN}'","content":"'${IP}'","ttl":120,"proxied":false}' | jq -r .result.id)
+fi
+
+RESULT=$(curl -sLX PUT "https://api.cloudflare.com/client/v4/zones/${ZONE}/dns_records/${RECORD}" \
+     -H "X-Auth-Email: ${CF_ID}" \
+     -H "X-Auth-Key: ${CF_KEY}" \
+     -H "Content-Type: application/json" \
+     --data '{"type":"A","name":"'${SUB_DOMAIN}'","content":"'${IP}'","ttl":120,"proxied":false}')
+echo "Updating DNS NS for ${NS_DOMAIN}..."
+ZONE=$(curl -sLX GET "https://api.cloudflare.com/client/v4/zones?name=${DOMAIN}&status=active" \
+     -H "X-Auth-Email: ${CF_ID}" \
+     -H "X-Auth-Key: ${CF_KEY}" \
+     -H "Content-Type: application/json" | jq -r .result[0].id)
+
+RECORD=$(curl -sLX GET "https://api.cloudflare.com/client/v4/zones/${ZONE}/dns_records?name=${NS_DOMAIN}" \
+     -H "X-Auth-Email: ${CF_ID}" \
+     -H "X-Auth-Key: ${CF_KEY}" \
+     -H "Content-Type: application/json" | jq -r .result[0].id)
+
+if [[ "${#RECORD}" -le 10 ]]; then
+     RECORD=$(curl -sLX POST "https://api.cloudflare.com/client/v4/zones/${ZONE}/dns_records" \
+     -H "X-Auth-Email: ${CF_ID}" \
+     -H "X-Auth-Key: ${CF_KEY}" \
+     -H "Content-Type: application/json" \
+     --data '{"type":"NS","name":"'${NS_DOMAIN}'","content":"'${SUB_DOMAIN}'","ttl":120,"proxied":false}' | jq -r .result.id)
+fi
+
+RESULT=$(curl -sLX PUT "https://api.cloudflare.com/client/v4/zones/${ZONE}/dns_records/${RECORD}" \
+     -H "X-Auth-Email: ${CF_ID}" \
+     -H "X-Auth-Key: ${CF_KEY}" \
+     -H "Content-Type: application/json" \
+     --data '{"type":"NS","name":"'${NS_DOMAIN}'","content":"'${SUB_DOMAIN}'","ttl":120,"proxied":false}')
+echo "$NS_DOMAIN" >> /root/nsdomain
+mkdir -p /usr/bin/xray
+mkdir -p /etc/xray
+echo "$SUB_DOMAIN" > /root/domain
+echo "$SUB_DOMAIN" > /root/scdomain
+echo "$SUB_DOMAIN" > /etc/xray/domain
+echo "$SUB_DOMAIN" > /etc/xray/scdomain
+echo "IP=$SUB_DOMAIN" > /var/lib/mwvpn-pro/ipvps.conf
+cp /root/domain /etc/xray
+echo "-------------------------------------" | lolcat
+echo "     YOUR SUB DOMAIN " | lolcat
+echo "-------------------------------------" | lolcat
+echo "-------------------------------------" | lolcat
+echo "DOMAIN = $SUB_DOMAIN " | lolcat
+echo "NS DOMAIN = $NS_DOMAIN " | lolcat
+echo "-------------------------------------" | lolcat
+rm -rf mwvpn.sh
+sleep 3
+cd
 ;;
 2)
 clear
@@ -218,7 +299,88 @@ echo -e   "\E[44;1;39m        ⇱ Your Select SubDomain ⇲                     
 echo -e   "\E[44;1;39m            ⇱ indossh.ninja ⇲                    \E[0m"
 echo -e "=================================================="  | lolcat
 sleep 4
-wget https://raw.githubusercontent.com/MyMasWayVPN/tunnel/main/domen/indosshninja.sh && chmod +x indosshninja.sh && ./indosshninja.sh
+MYIP=$(wget -qO- icanhazip.com);
+apt install jq curl -y
+rm -rf /root/nsdomain
+rm nsdomain
+
+sub=$(</dev/urandom tr -dc a-z0-9 | head -c5)
+subns=$(</dev/urandom tr -dc a-x0-9 | head -c5)
+DOMAIN=indossh.ninja
+SUB_DOMAIN=vip-${sub}.indossh.ninja
+NS_DOMAIN=ns-${subns}.indossh.ninja
+CF_ID=akunabal.abal7770@gmail.com
+CF_KEY=4502348bc050806208bb10e3a1af5b9d1d018
+
+set -euo pipefail
+IP=$(wget -qO- icanhazip.com);
+echo "Updating DNS for ${SUB_DOMAIN}..."
+ZONE=$(curl -sLX GET "https://api.cloudflare.com/client/v4/zones?name=${DOMAIN}&status=active" \
+     -H "X-Auth-Email: ${CF_ID}" \
+     -H "X-Auth-Key: ${CF_KEY}" \
+     -H "Content-Type: application/json" | jq -r .result[0].id)
+
+RECORD=$(curl -sLX GET "https://api.cloudflare.com/client/v4/zones/${ZONE}/dns_records?name=${SUB_DOMAIN}" \
+     -H "X-Auth-Email: ${CF_ID}" \
+     -H "X-Auth-Key: ${CF_KEY}" \
+     -H "Content-Type: application/json" | jq -r .result[0].id)
+
+if [[ "${#RECORD}" -le 10 ]]; then
+     RECORD=$(curl -sLX POST "https://api.cloudflare.com/client/v4/zones/${ZONE}/dns_records" \
+     -H "X-Auth-Email: ${CF_ID}" \
+     -H "X-Auth-Key: ${CF_KEY}" \
+     -H "Content-Type: application/json" \
+     --data '{"type":"A","name":"'${SUB_DOMAIN}'","content":"'${IP}'","ttl":120,"proxied":false}' | jq -r .result.id)
+fi
+
+RESULT=$(curl -sLX PUT "https://api.cloudflare.com/client/v4/zones/${ZONE}/dns_records/${RECORD}" \
+     -H "X-Auth-Email: ${CF_ID}" \
+     -H "X-Auth-Key: ${CF_KEY}" \
+     -H "Content-Type: application/json" \
+     --data '{"type":"A","name":"'${SUB_DOMAIN}'","content":"'${IP}'","ttl":120,"proxied":false}')
+echo "Updating DNS NS for ${NS_DOMAIN}..."
+ZONE=$(curl -sLX GET "https://api.cloudflare.com/client/v4/zones?name=${DOMAIN}&status=active" \
+     -H "X-Auth-Email: ${CF_ID}" \
+     -H "X-Auth-Key: ${CF_KEY}" \
+     -H "Content-Type: application/json" | jq -r .result[0].id)
+
+RECORD=$(curl -sLX GET "https://api.cloudflare.com/client/v4/zones/${ZONE}/dns_records?name=${NS_DOMAIN}" \
+     -H "X-Auth-Email: ${CF_ID}" \
+     -H "X-Auth-Key: ${CF_KEY}" \
+     -H "Content-Type: application/json" | jq -r .result[0].id)
+
+if [[ "${#RECORD}" -le 10 ]]; then
+     RECORD=$(curl -sLX POST "https://api.cloudflare.com/client/v4/zones/${ZONE}/dns_records" \
+     -H "X-Auth-Email: ${CF_ID}" \
+     -H "X-Auth-Key: ${CF_KEY}" \
+     -H "Content-Type: application/json" \
+     --data '{"type":"NS","name":"'${NS_DOMAIN}'","content":"'${SUB_DOMAIN}'","ttl":120,"proxied":false}' | jq -r .result.id)
+fi
+
+RESULT=$(curl -sLX PUT "https://api.cloudflare.com/client/v4/zones/${ZONE}/dns_records/${RECORD}" \
+     -H "X-Auth-Email: ${CF_ID}" \
+     -H "X-Auth-Key: ${CF_KEY}" \
+     -H "Content-Type: application/json" \
+     --data '{"type":"NS","name":"'${NS_DOMAIN}'","content":"'${SUB_DOMAIN}'","ttl":120,"proxied":false}')
+echo "$NS_DOMAIN" >> /root/nsdomain
+mkdir -p /usr/bin/xray
+mkdir -p /etc/xray
+echo "$SUB_DOMAIN" > /root/domain
+echo "$SUB_DOMAIN" > /root/scdomain
+echo "$SUB_DOMAIN" > /etc/xray/domain
+echo "$SUB_DOMAIN" > /etc/xray/scdomain
+echo "IP=$SUB_DOMAIN" > /var/lib/mwvpn-pro/ipvps.conf
+cp /root/domain /etc/xray
+echo "-------------------------------------" | lolcat
+echo "     YOUR SUB DOMAIN " | lolcat
+echo "-------------------------------------" | lolcat
+echo "-------------------------------------" | lolcat
+echo "DOMAIN = $SUB_DOMAIN " | lolcat
+echo "NS DOMAIN = $NS_DOMAIN " | lolcat
+echo "-------------------------------------" | lolcat
+rm -rf indosshninja.sh
+sleep 3
+cd
 ;;
 3)
 clear
@@ -227,7 +389,88 @@ echo -e   "\E[44;1;39m        ⇱ Your Select SubDomain ⇲                     
 echo -e   "\E[44;1;39m             ⇱ indossh.me ⇲                    \E[0m"
 echo -e "=================================================="  | lolcat
 sleep 4
-wget https://raw.githubusercontent.com/MyMasWayVPN/tunnel/main/domen/indosshme.sh && chmod +x indosshme.sh && ./indosshme.sh
+MYIP=$(wget -qO- icanhazip.com);
+apt install jq curl -y
+rm -rf /root/nsdomain
+rm nsdomain
+
+sub=$(</dev/urandom tr -dc a-z0-9 | head -c5)
+subns=$(</dev/urandom tr -dc a-x0-9 | head -c5)
+DOMAIN=indossh.me
+SUB_DOMAIN=vip-${sub}.indossh.me
+NS_DOMAIN=ns-${subns}.indossh.me
+CF_ID=akunabal.abal7770@gmail.com
+CF_KEY=4502348bc050806208bb10e3a1af5b9d1d018
+
+set -euo pipefail
+IP=$(wget -qO- icanhazip.com);
+echo "Updating DNS for ${SUB_DOMAIN}..."
+ZONE=$(curl -sLX GET "https://api.cloudflare.com/client/v4/zones?name=${DOMAIN}&status=active" \
+     -H "X-Auth-Email: ${CF_ID}" \
+     -H "X-Auth-Key: ${CF_KEY}" \
+     -H "Content-Type: application/json" | jq -r .result[0].id)
+
+RECORD=$(curl -sLX GET "https://api.cloudflare.com/client/v4/zones/${ZONE}/dns_records?name=${SUB_DOMAIN}" \
+     -H "X-Auth-Email: ${CF_ID}" \
+     -H "X-Auth-Key: ${CF_KEY}" \
+     -H "Content-Type: application/json" | jq -r .result[0].id)
+
+if [[ "${#RECORD}" -le 10 ]]; then
+     RECORD=$(curl -sLX POST "https://api.cloudflare.com/client/v4/zones/${ZONE}/dns_records" \
+     -H "X-Auth-Email: ${CF_ID}" \
+     -H "X-Auth-Key: ${CF_KEY}" \
+     -H "Content-Type: application/json" \
+     --data '{"type":"A","name":"'${SUB_DOMAIN}'","content":"'${IP}'","ttl":120,"proxied":false}' | jq -r .result.id)
+fi
+
+RESULT=$(curl -sLX PUT "https://api.cloudflare.com/client/v4/zones/${ZONE}/dns_records/${RECORD}" \
+     -H "X-Auth-Email: ${CF_ID}" \
+     -H "X-Auth-Key: ${CF_KEY}" \
+     -H "Content-Type: application/json" \
+     --data '{"type":"A","name":"'${SUB_DOMAIN}'","content":"'${IP}'","ttl":120,"proxied":false}')
+echo "Updating DNS NS for ${NS_DOMAIN}..."
+ZONE=$(curl -sLX GET "https://api.cloudflare.com/client/v4/zones?name=${DOMAIN}&status=active" \
+     -H "X-Auth-Email: ${CF_ID}" \
+     -H "X-Auth-Key: ${CF_KEY}" \
+     -H "Content-Type: application/json" | jq -r .result[0].id)
+
+RECORD=$(curl -sLX GET "https://api.cloudflare.com/client/v4/zones/${ZONE}/dns_records?name=${NS_DOMAIN}" \
+     -H "X-Auth-Email: ${CF_ID}" \
+     -H "X-Auth-Key: ${CF_KEY}" \
+     -H "Content-Type: application/json" | jq -r .result[0].id)
+
+if [[ "${#RECORD}" -le 10 ]]; then
+     RECORD=$(curl -sLX POST "https://api.cloudflare.com/client/v4/zones/${ZONE}/dns_records" \
+     -H "X-Auth-Email: ${CF_ID}" \
+     -H "X-Auth-Key: ${CF_KEY}" \
+     -H "Content-Type: application/json" \
+     --data '{"type":"NS","name":"'${NS_DOMAIN}'","content":"'${SUB_DOMAIN}'","ttl":120,"proxied":false}' | jq -r .result.id)
+fi
+
+RESULT=$(curl -sLX PUT "https://api.cloudflare.com/client/v4/zones/${ZONE}/dns_records/${RECORD}" \
+     -H "X-Auth-Email: ${CF_ID}" \
+     -H "X-Auth-Key: ${CF_KEY}" \
+     -H "Content-Type: application/json" \
+     --data '{"type":"NS","name":"'${NS_DOMAIN}'","content":"'${SUB_DOMAIN}'","ttl":120,"proxied":false}')
+echo "$NS_DOMAIN" >> /root/nsdomain
+mkdir -p /usr/bin/xray
+mkdir -p /etc/xray
+echo "$SUB_DOMAIN" > /root/domain
+echo "$SUB_DOMAIN" > /root/scdomain
+echo "$SUB_DOMAIN" > /etc/xray/domain
+echo "$SUB_DOMAIN" > /etc/xray/scdomain
+echo "IP=$SUB_DOMAIN" > /var/lib/mwvpn-pro/ipvps.conf
+cp /root/domain /etc/xray
+echo "-------------------------------------" | lolcat
+echo "     YOUR SUB DOMAIN " | lolcat
+echo "-------------------------------------" | lolcat
+echo "-------------------------------------" | lolcat
+echo "DOMAIN = $SUB_DOMAIN " | lolcat
+echo "NS DOMAIN = $NS_DOMAIN " | lolcat
+echo "-------------------------------------" | lolcat
+rm -rf indosshme.sh
+sleep 3
+cd
 ;;
 4)
 clear
@@ -236,7 +479,88 @@ echo -e   "\E[44;1;39m        ⇱ Your Select SubDomain ⇲                     
 echo -e   "\E[44;1;39m           ⇱ masway-vpn.my.id ⇲                    \E[0m"
 echo -e "=================================================="  | lolcat
 sleep 4
-wget https://raw.githubusercontent.com/MyMasWayVPN/tunnel/main/domen/maswayvpn.sh && chmod +x maswayvpn.sh && ./maswayvpn.sh
+MYIP=$(wget -qO- icanhazip.com);
+apt install jq curl -y
+rm -rf /root/nsdomain
+rm nsdomain
+
+sub=$(</dev/urandom tr -dc a-z0-9 | head -c5)
+subns=$(</dev/urandom tr -dc a-x0-9 | head -c5)
+DOMAIN=masway-vpn.my.id
+SUB_DOMAIN=vip-${sub}.masway-vpn.my.id
+NS_DOMAIN=ns-${subns}.masway-vpn.my.id
+CF_ID=akunabal.abal7770@gmail.com
+CF_KEY=4502348bc050806208bb10e3a1af5b9d1d018
+
+set -euo pipefail
+IP=$(wget -qO- icanhazip.com);
+echo "Updating DNS for ${SUB_DOMAIN}..."
+ZONE=$(curl -sLX GET "https://api.cloudflare.com/client/v4/zones?name=${DOMAIN}&status=active" \
+     -H "X-Auth-Email: ${CF_ID}" \
+     -H "X-Auth-Key: ${CF_KEY}" \
+     -H "Content-Type: application/json" | jq -r .result[0].id)
+
+RECORD=$(curl -sLX GET "https://api.cloudflare.com/client/v4/zones/${ZONE}/dns_records?name=${SUB_DOMAIN}" \
+     -H "X-Auth-Email: ${CF_ID}" \
+     -H "X-Auth-Key: ${CF_KEY}" \
+     -H "Content-Type: application/json" | jq -r .result[0].id)
+
+if [[ "${#RECORD}" -le 10 ]]; then
+     RECORD=$(curl -sLX POST "https://api.cloudflare.com/client/v4/zones/${ZONE}/dns_records" \
+     -H "X-Auth-Email: ${CF_ID}" \
+     -H "X-Auth-Key: ${CF_KEY}" \
+     -H "Content-Type: application/json" \
+     --data '{"type":"A","name":"'${SUB_DOMAIN}'","content":"'${IP}'","ttl":120,"proxied":false}' | jq -r .result.id)
+fi
+
+RESULT=$(curl -sLX PUT "https://api.cloudflare.com/client/v4/zones/${ZONE}/dns_records/${RECORD}" \
+     -H "X-Auth-Email: ${CF_ID}" \
+     -H "X-Auth-Key: ${CF_KEY}" \
+     -H "Content-Type: application/json" \
+     --data '{"type":"A","name":"'${SUB_DOMAIN}'","content":"'${IP}'","ttl":120,"proxied":false}')
+echo "Updating DNS NS for ${NS_DOMAIN}..."
+ZONE=$(curl -sLX GET "https://api.cloudflare.com/client/v4/zones?name=${DOMAIN}&status=active" \
+     -H "X-Auth-Email: ${CF_ID}" \
+     -H "X-Auth-Key: ${CF_KEY}" \
+     -H "Content-Type: application/json" | jq -r .result[0].id)
+
+RECORD=$(curl -sLX GET "https://api.cloudflare.com/client/v4/zones/${ZONE}/dns_records?name=${NS_DOMAIN}" \
+     -H "X-Auth-Email: ${CF_ID}" \
+     -H "X-Auth-Key: ${CF_KEY}" \
+     -H "Content-Type: application/json" | jq -r .result[0].id)
+
+if [[ "${#RECORD}" -le 10 ]]; then
+     RECORD=$(curl -sLX POST "https://api.cloudflare.com/client/v4/zones/${ZONE}/dns_records" \
+     -H "X-Auth-Email: ${CF_ID}" \
+     -H "X-Auth-Key: ${CF_KEY}" \
+     -H "Content-Type: application/json" \
+     --data '{"type":"NS","name":"'${NS_DOMAIN}'","content":"'${SUB_DOMAIN}'","ttl":120,"proxied":false}' | jq -r .result.id)
+fi
+
+RESULT=$(curl -sLX PUT "https://api.cloudflare.com/client/v4/zones/${ZONE}/dns_records/${RECORD}" \
+     -H "X-Auth-Email: ${CF_ID}" \
+     -H "X-Auth-Key: ${CF_KEY}" \
+     -H "Content-Type: application/json" \
+     --data '{"type":"NS","name":"'${NS_DOMAIN}'","content":"'${SUB_DOMAIN}'","ttl":120,"proxied":false}')
+echo "$NS_DOMAIN" >> /root/nsdomain
+mkdir -p /usr/bin/xray
+mkdir -p /etc/xray
+echo "$SUB_DOMAIN" > /root/domain
+echo "$SUB_DOMAIN" > /root/scdomain
+echo "$SUB_DOMAIN" > /etc/xray/domain
+echo "$SUB_DOMAIN" > /etc/xray/scdomain
+echo "IP=$SUB_DOMAIN" > /var/lib/mwvpn-pro/ipvps.conf
+cp /root/domain /etc/xray
+echo "-------------------------------------" | lolcat
+echo "     YOUR SUB DOMAIN " | lolcat
+echo "-------------------------------------" | lolcat
+echo "-------------------------------------" | lolcat
+echo "DOMAIN = $SUB_DOMAIN " | lolcat
+echo "NS DOMAIN = $NS_DOMAIN " | lolcat
+echo "-------------------------------------" | lolcat
+rm -rf maswayvpn.sh
+sleep 3
+cd
 ;;
 5)
 clear
@@ -245,7 +569,88 @@ echo -e   "\E[44;1;39m        ⇱ Your Select SubDomain ⇲                     
 echo -e   "\E[44;1;39m            ⇱ myindossh.tech ⇲                    \E[0m"
 echo -e "=================================================="  | lolcat
 sleep 4
-wget https://raw.githubusercontent.com/MyMasWayVPN/tunnel/main/domen/myindossh.sh && chmod +x myindossh.sh && ./myindossh.sh
+MYIP=$(wget -qO- icanhazip.com);
+apt install jq curl -y
+rm -rf /root/nsdomain
+rm nsdomain
+
+sub=$(</dev/urandom tr -dc a-z0-9 | head -c5)
+subns=$(</dev/urandom tr -dc a-x0-9 | head -c5)
+DOMAIN=myindossh.tech
+SUB_DOMAIN=vip-${sub}.myindossh.tech
+NS_DOMAIN=ns-${subns}.myindossh.tech
+CF_ID=akunabal.abal7770@gmail.com
+CF_KEY=4502348bc050806208bb10e3a1af5b9d1d018
+
+set -euo pipefail
+IP=$(wget -qO- icanhazip.com);
+echo "Updating DNS for ${SUB_DOMAIN}..."
+ZONE=$(curl -sLX GET "https://api.cloudflare.com/client/v4/zones?name=${DOMAIN}&status=active" \
+     -H "X-Auth-Email: ${CF_ID}" \
+     -H "X-Auth-Key: ${CF_KEY}" \
+     -H "Content-Type: application/json" | jq -r .result[0].id)
+
+RECORD=$(curl -sLX GET "https://api.cloudflare.com/client/v4/zones/${ZONE}/dns_records?name=${SUB_DOMAIN}" \
+     -H "X-Auth-Email: ${CF_ID}" \
+     -H "X-Auth-Key: ${CF_KEY}" \
+     -H "Content-Type: application/json" | jq -r .result[0].id)
+
+if [[ "${#RECORD}" -le 10 ]]; then
+     RECORD=$(curl -sLX POST "https://api.cloudflare.com/client/v4/zones/${ZONE}/dns_records" \
+     -H "X-Auth-Email: ${CF_ID}" \
+     -H "X-Auth-Key: ${CF_KEY}" \
+     -H "Content-Type: application/json" \
+     --data '{"type":"A","name":"'${SUB_DOMAIN}'","content":"'${IP}'","ttl":120,"proxied":false}' | jq -r .result.id)
+fi
+
+RESULT=$(curl -sLX PUT "https://api.cloudflare.com/client/v4/zones/${ZONE}/dns_records/${RECORD}" \
+     -H "X-Auth-Email: ${CF_ID}" \
+     -H "X-Auth-Key: ${CF_KEY}" \
+     -H "Content-Type: application/json" \
+     --data '{"type":"A","name":"'${SUB_DOMAIN}'","content":"'${IP}'","ttl":120,"proxied":false}')
+echo "Updating DNS NS for ${NS_DOMAIN}..."
+ZONE=$(curl -sLX GET "https://api.cloudflare.com/client/v4/zones?name=${DOMAIN}&status=active" \
+     -H "X-Auth-Email: ${CF_ID}" \
+     -H "X-Auth-Key: ${CF_KEY}" \
+     -H "Content-Type: application/json" | jq -r .result[0].id)
+
+RECORD=$(curl -sLX GET "https://api.cloudflare.com/client/v4/zones/${ZONE}/dns_records?name=${NS_DOMAIN}" \
+     -H "X-Auth-Email: ${CF_ID}" \
+     -H "X-Auth-Key: ${CF_KEY}" \
+     -H "Content-Type: application/json" | jq -r .result[0].id)
+
+if [[ "${#RECORD}" -le 10 ]]; then
+     RECORD=$(curl -sLX POST "https://api.cloudflare.com/client/v4/zones/${ZONE}/dns_records" \
+     -H "X-Auth-Email: ${CF_ID}" \
+     -H "X-Auth-Key: ${CF_KEY}" \
+     -H "Content-Type: application/json" \
+     --data '{"type":"NS","name":"'${NS_DOMAIN}'","content":"'${SUB_DOMAIN}'","ttl":120,"proxied":false}' | jq -r .result.id)
+fi
+
+RESULT=$(curl -sLX PUT "https://api.cloudflare.com/client/v4/zones/${ZONE}/dns_records/${RECORD}" \
+     -H "X-Auth-Email: ${CF_ID}" \
+     -H "X-Auth-Key: ${CF_KEY}" \
+     -H "Content-Type: application/json" \
+     --data '{"type":"NS","name":"'${NS_DOMAIN}'","content":"'${SUB_DOMAIN}'","ttl":120,"proxied":false}')
+echo "$NS_DOMAIN" >> /root/nsdomain
+mkdir -p /usr/bin/xray
+mkdir -p /etc/xray
+echo "$SUB_DOMAIN" > /root/domain
+echo "$SUB_DOMAIN" > /root/scdomain
+echo "$SUB_DOMAIN" > /etc/xray/domain
+echo "$SUB_DOMAIN" > /etc/xray/scdomain
+echo "IP=$SUB_DOMAIN" > /var/lib/mwvpn-pro/ipvps.conf
+cp /root/domain /etc/xray
+echo "-------------------------------------" | lolcat
+echo "     YOUR SUB DOMAIN " | lolcat
+echo "-------------------------------------" | lolcat
+echo "-------------------------------------" | lolcat
+echo "DOMAIN = $SUB_DOMAIN " | lolcat
+echo "NS DOMAIN = $NS_DOMAIN " | lolcat
+echo "-------------------------------------" | lolcat
+rm -rf myindossh.sh
+sleep 3
+cd
 ;;
 6)
 clear
@@ -254,7 +659,88 @@ echo -e   "\E[44;1;39m        ⇱ Your Select SubDomain ⇲                     
 echo -e   "\E[44;1;39m             ⇱ nextvpn.xyz ⇲                    \E[0m"
 echo -e "=================================================="  | lolcat
 sleep 4
-wget https://raw.githubusercontent.com/MyMasWayVPN/tunnel/main/domen/nextvpn.sh && chmod +x nextvpn.sh && ./nextvpn.sh
+MYIP=$(wget -qO- icanhazip.com);
+apt install jq curl -y
+rm -rf /root/nsdomain
+rm nsdomain
+
+sub=$(</dev/urandom tr -dc a-z0-9 | head -c5)
+subns=$(</dev/urandom tr -dc a-x0-9 | head -c5)
+DOMAIN=nextvpn.xyz
+SUB_DOMAIN=vip-${sub}.nextvpn.xyz
+NS_DOMAIN=ns-${subns}.nextvpn.xyz
+CF_ID=akunabal.abal7770@gmail.com
+CF_KEY=4502348bc050806208bb10e3a1af5b9d1d018
+
+set -euo pipefail
+IP=$(wget -qO- icanhazip.com);
+echo "Updating DNS for ${SUB_DOMAIN}..."
+ZONE=$(curl -sLX GET "https://api.cloudflare.com/client/v4/zones?name=${DOMAIN}&status=active" \
+     -H "X-Auth-Email: ${CF_ID}" \
+     -H "X-Auth-Key: ${CF_KEY}" \
+     -H "Content-Type: application/json" | jq -r .result[0].id)
+
+RECORD=$(curl -sLX GET "https://api.cloudflare.com/client/v4/zones/${ZONE}/dns_records?name=${SUB_DOMAIN}" \
+     -H "X-Auth-Email: ${CF_ID}" \
+     -H "X-Auth-Key: ${CF_KEY}" \
+     -H "Content-Type: application/json" | jq -r .result[0].id)
+
+if [[ "${#RECORD}" -le 10 ]]; then
+     RECORD=$(curl -sLX POST "https://api.cloudflare.com/client/v4/zones/${ZONE}/dns_records" \
+     -H "X-Auth-Email: ${CF_ID}" \
+     -H "X-Auth-Key: ${CF_KEY}" \
+     -H "Content-Type: application/json" \
+     --data '{"type":"A","name":"'${SUB_DOMAIN}'","content":"'${IP}'","ttl":120,"proxied":false}' | jq -r .result.id)
+fi
+
+RESULT=$(curl -sLX PUT "https://api.cloudflare.com/client/v4/zones/${ZONE}/dns_records/${RECORD}" \
+     -H "X-Auth-Email: ${CF_ID}" \
+     -H "X-Auth-Key: ${CF_KEY}" \
+     -H "Content-Type: application/json" \
+     --data '{"type":"A","name":"'${SUB_DOMAIN}'","content":"'${IP}'","ttl":120,"proxied":false}')
+echo "Updating DNS NS for ${NS_DOMAIN}..."
+ZONE=$(curl -sLX GET "https://api.cloudflare.com/client/v4/zones?name=${DOMAIN}&status=active" \
+     -H "X-Auth-Email: ${CF_ID}" \
+     -H "X-Auth-Key: ${CF_KEY}" \
+     -H "Content-Type: application/json" | jq -r .result[0].id)
+
+RECORD=$(curl -sLX GET "https://api.cloudflare.com/client/v4/zones/${ZONE}/dns_records?name=${NS_DOMAIN}" \
+     -H "X-Auth-Email: ${CF_ID}" \
+     -H "X-Auth-Key: ${CF_KEY}" \
+     -H "Content-Type: application/json" | jq -r .result[0].id)
+
+if [[ "${#RECORD}" -le 10 ]]; then
+     RECORD=$(curl -sLX POST "https://api.cloudflare.com/client/v4/zones/${ZONE}/dns_records" \
+     -H "X-Auth-Email: ${CF_ID}" \
+     -H "X-Auth-Key: ${CF_KEY}" \
+     -H "Content-Type: application/json" \
+     --data '{"type":"NS","name":"'${NS_DOMAIN}'","content":"'${SUB_DOMAIN}'","ttl":120,"proxied":false}' | jq -r .result.id)
+fi
+
+RESULT=$(curl -sLX PUT "https://api.cloudflare.com/client/v4/zones/${ZONE}/dns_records/${RECORD}" \
+     -H "X-Auth-Email: ${CF_ID}" \
+     -H "X-Auth-Key: ${CF_KEY}" \
+     -H "Content-Type: application/json" \
+     --data '{"type":"NS","name":"'${NS_DOMAIN}'","content":"'${SUB_DOMAIN}'","ttl":120,"proxied":false}')
+echo "$NS_DOMAIN" >> /root/nsdomain
+mkdir -p /usr/bin/xray
+mkdir -p /etc/xray
+echo "$SUB_DOMAIN" > /root/domain
+echo "$SUB_DOMAIN" > /root/scdomain
+echo "$SUB_DOMAIN" > /etc/xray/domain
+echo "$SUB_DOMAIN" > /etc/xray/scdomain
+echo "IP=$SUB_DOMAIN" > /var/lib/mwvpn-pro/ipvps.conf
+cp /root/domain /etc/xray
+echo "-------------------------------------" | lolcat
+echo "     YOUR SUB DOMAIN " | lolcat
+echo "-------------------------------------" | lolcat
+echo "-------------------------------------" | lolcat
+echo "DOMAIN = $SUB_DOMAIN " | lolcat
+echo "NS DOMAIN = $NS_DOMAIN " | lolcat
+echo "-------------------------------------" | lolcat
+rm -rf nextvpn.sh
+sleep 3
+cd
 ;;
 7)
 clear
@@ -263,7 +749,88 @@ echo -e   "\E[44;1;39m        ⇱ Your Select SubDomain ⇲                     
 echo -e   "\E[44;1;39m             ⇱ aiosc.me ⇲                    \E[0m"
 echo -e "=================================================="  | lolcat
 sleep 4
-wget https://raw.githubusercontent.com/MyMasWayVPN/tunnel/main/domen/aioscme.sh && chmod +x aioscme.sh && ./aioscme.sh
+MYIP=$(wget -qO- icanhazip.com);
+apt install jq curl -y
+rm -rf /root/nsdomain
+rm nsdomain
+
+sub=$(</dev/urandom tr -dc a-z0-9 | head -c5)
+subns=$(</dev/urandom tr -dc a-x0-9 | head -c5)
+DOMAIN=aiosc.me
+SUB_DOMAIN=vip-${sub}.aiosc.me
+NS_DOMAIN=ns-${subns}.aiosc.me
+CF_ID=akunabal.abal7770@gmail.com
+CF_KEY=4502348bc050806208bb10e3a1af5b9d1d018
+
+set -euo pipefail
+IP=$(wget -qO- icanhazip.com);
+echo "Updating DNS for ${SUB_DOMAIN}..."
+ZONE=$(curl -sLX GET "https://api.cloudflare.com/client/v4/zones?name=${DOMAIN}&status=active" \
+     -H "X-Auth-Email: ${CF_ID}" \
+     -H "X-Auth-Key: ${CF_KEY}" \
+     -H "Content-Type: application/json" | jq -r .result[0].id)
+
+RECORD=$(curl -sLX GET "https://api.cloudflare.com/client/v4/zones/${ZONE}/dns_records?name=${SUB_DOMAIN}" \
+     -H "X-Auth-Email: ${CF_ID}" \
+     -H "X-Auth-Key: ${CF_KEY}" \
+     -H "Content-Type: application/json" | jq -r .result[0].id)
+
+if [[ "${#RECORD}" -le 10 ]]; then
+     RECORD=$(curl -sLX POST "https://api.cloudflare.com/client/v4/zones/${ZONE}/dns_records" \
+     -H "X-Auth-Email: ${CF_ID}" \
+     -H "X-Auth-Key: ${CF_KEY}" \
+     -H "Content-Type: application/json" \
+     --data '{"type":"A","name":"'${SUB_DOMAIN}'","content":"'${IP}'","ttl":120,"proxied":false}' | jq -r .result.id)
+fi
+
+RESULT=$(curl -sLX PUT "https://api.cloudflare.com/client/v4/zones/${ZONE}/dns_records/${RECORD}" \
+     -H "X-Auth-Email: ${CF_ID}" \
+     -H "X-Auth-Key: ${CF_KEY}" \
+     -H "Content-Type: application/json" \
+     --data '{"type":"A","name":"'${SUB_DOMAIN}'","content":"'${IP}'","ttl":120,"proxied":false}')
+echo "Updating DNS NS for ${NS_DOMAIN}..."
+ZONE=$(curl -sLX GET "https://api.cloudflare.com/client/v4/zones?name=${DOMAIN}&status=active" \
+     -H "X-Auth-Email: ${CF_ID}" \
+     -H "X-Auth-Key: ${CF_KEY}" \
+     -H "Content-Type: application/json" | jq -r .result[0].id)
+
+RECORD=$(curl -sLX GET "https://api.cloudflare.com/client/v4/zones/${ZONE}/dns_records?name=${NS_DOMAIN}" \
+     -H "X-Auth-Email: ${CF_ID}" \
+     -H "X-Auth-Key: ${CF_KEY}" \
+     -H "Content-Type: application/json" | jq -r .result[0].id)
+
+if [[ "${#RECORD}" -le 10 ]]; then
+     RECORD=$(curl -sLX POST "https://api.cloudflare.com/client/v4/zones/${ZONE}/dns_records" \
+     -H "X-Auth-Email: ${CF_ID}" \
+     -H "X-Auth-Key: ${CF_KEY}" \
+     -H "Content-Type: application/json" \
+     --data '{"type":"NS","name":"'${NS_DOMAIN}'","content":"'${SUB_DOMAIN}'","ttl":120,"proxied":false}' | jq -r .result.id)
+fi
+
+RESULT=$(curl -sLX PUT "https://api.cloudflare.com/client/v4/zones/${ZONE}/dns_records/${RECORD}" \
+     -H "X-Auth-Email: ${CF_ID}" \
+     -H "X-Auth-Key: ${CF_KEY}" \
+     -H "Content-Type: application/json" \
+     --data '{"type":"NS","name":"'${NS_DOMAIN}'","content":"'${SUB_DOMAIN}'","ttl":120,"proxied":false}')
+echo "$NS_DOMAIN" >> /root/nsdomain
+mkdir -p /usr/bin/xray
+mkdir -p /etc/xray
+echo "$SUB_DOMAIN" > /root/domain
+echo "$SUB_DOMAIN" > /root/scdomain
+echo "$SUB_DOMAIN" > /etc/xray/domain
+echo "$SUB_DOMAIN" > /etc/xray/scdomain
+echo "IP=$SUB_DOMAIN" > /var/lib/mwvpn-pro/ipvps.conf
+cp /root/domain /etc/xray
+echo "-------------------------------------" | lolcat
+echo "     YOUR SUB DOMAIN " | lolcat
+echo "-------------------------------------" | lolcat
+echo "-------------------------------------" | lolcat
+echo "DOMAIN = $SUB_DOMAIN " | lolcat
+echo "NS DOMAIN = $NS_DOMAIN " | lolcat
+echo "-------------------------------------" | lolcat
+rm -rf aioscme.sh
+sleep 3
+cd
 ;;
 esac
 cat <<EOF>> /etc/mwvpn/theme/red
