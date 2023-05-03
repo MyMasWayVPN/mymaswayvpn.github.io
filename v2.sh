@@ -860,7 +860,6 @@ EOF
 cat <<EOF>> /etc/mwvpn/theme/color.conf
 blue
 EOF
-figlet -f slant SSH-OVPN | lolcat
 sleep 2
 echo "-------------------------------------" | lolcat
 echo "     Install SSH & OpenVPN " | lolcat
@@ -871,7 +870,6 @@ wget https://raw.githubusercontent.com/MyMasWayVPN/tunnel/main/ssh/ssh-vpn.sh &&
 wget https://raw.githubusercontent.com/MyMasWayVPN/tunnel/main/ssh/ohp.sh && chmod +x ohp.sh && ./ohp.sh
 wget https://raw.githubusercontent.com/MyMasWayVPN/tunnel/main/ovpn/vpn.sh && chmod +x vpn.sh && ./vpn.sh
 clear
-figlet -f slant XRAY | lolcat
 sleep 2
 echo "-------------------------------------" | lolcat
 echo "     Install Xray " | lolcat
@@ -882,7 +880,6 @@ wget https://raw.githubusercontent.com/MyMasWayVPN/tunnel/main/xray/ins-xray.sh 
 clear
 wget https://raw.githubusercontent.com/MyMasWayVPN/tunnel/main/backup/set-br.sh && chmod +x set-br.sh && ./set-br.sh
 clear
-figlet -f slant Websocket | lolcat
 sleep 2
 echo "-------------------------------------" | lolcat
 echo "     Install Websocket " | lolcat
@@ -893,7 +890,6 @@ wget https://raw.githubusercontent.com/MyMasWayVPN/tunnel/main/websocket/insshws
 clear
 wget https://raw.githubusercontent.com/MyMasWayVPN/tunnel/main/websocket/nontls.sh && chmod +x nontls.sh && ./nontls.sh
 clear
-figlet -f slant SlowDNS | lolcat
 sleep 2
 echo "-------------------------------------" | lolcat
 echo "     Install SlowDNS " | lolcat
@@ -902,7 +898,6 @@ sleep 3
 clear
 wget https://raw.githubusercontent.com/MyMasWayVPN/tunnel/main/slowdnss/install-sldns && chmod +x install-sldns && ./install-sldns
 clear
-figlet -f slant Menu | lolcat
 sleep 2
 echo "-------------------------------------" | lolcat
 echo "     X-TRA MENU " | lolcat
@@ -947,7 +942,6 @@ fi
 curl -sS ifconfig.me > /etc/myipvps
 echo " "
 clear
-figlet -f slant MasWay-VPN | lolcat
 sleep 2
 echo "=====================-[ AutoScript MW-VPN ]-===================="
 echo ""
