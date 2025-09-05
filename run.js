@@ -1,12 +1,9 @@
-import { spawn } from 'child_process';
+const { spawn } = require('child_process');
+
 process.env.TZ = 'Asia/Jakarta';
 
-/**
- * Start bash with colored prompt
- */
 function start(cmd) {
     try {
-        // ANSI codes untuk warna
         const colorPrompt = '\\[\\033[1;36m\\]MasWay@users\\[\\033[0m\\]:\\w\\$ ';
 
         const childProcess = spawn(cmd, ['-c', `
@@ -20,6 +17,10 @@ function start(cmd) {
 
         childProcess.on('error', (error) => {
             console.error('Error starting process:', error.message);
+        });
+
+        childProcess.on('exit', (code, signal) => {
+            console.log(`Child process exited with code ${code}, signal ${signal}`);
         });
     } catch (error) {
         console.error('Error:', error.message);
