@@ -1,6 +1,10 @@
 import fs from "fs";
+import { createRequire } from "module";
 
 process.env.TZ = "Asia/Jakarta";
+
+// Buat require yang bisa dipakai walaupun mode ESM
+const require = createRequire(import.meta.url);
 
 function getModuleType() {
     try {
@@ -14,9 +18,11 @@ function getModuleType() {
 async function loadChildProcess() {
     const type = getModuleType();
     if (type === "module") {
+        // Kalau ESM → pakai import
         const cp = await import("child_process");
         return cp.spawn;
     } else {
+        // Kalau CommonJS → pakai require
         const { spawn } = require("child_process");
         return spawn;
     }
