@@ -1,0 +1,46 @@
+name: Automated Commit
+
+on:
+  schedule:
+    - cron: '0 * * * *' # jalan setiap 1 jam (menit ke-0)
+  workflow_dispatch: # bisa dijalankan manual lewat GitHub UI
+
+permissions:
+  contents: write # perlu untuk push ke repo
+
+jobs:
+  update_commit:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Setup Debug Information
+        run: echo "::debug::Triggered by ref = ${{ github.ref }}"
+
+      - name: Checkout Code
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+          fetch-depth: 0
+
+      - name: Update Timestamp File
+        run: |
+          current_time=$(date '+%Y-%m-%d %H:%M:%S')
+          echo "Updated on $current_time" > TIMESTAMP.txt
+          echo "Current time: $current_time"
+
+      - name: Setup Git Configuration
+        run: |
+          git config user.email "mas120604way@gmail.com"
+          git config user.name "mymaswayvpn"
+
+      - name: Prepare Commit
+        run: |
+          commit_messages=("Update: ⏰" "Refresh: 🔄" "Renew: 🌟" "Revise: 📝" "Amend: 🛠" "Adjust: 🔧" "Change: 📈" "Modify: 🖊" "Transform: 🌀" "Revamp: 🌈")
+          random_msg=${commit_messages[$RANDOM % ${#commit_messages[@]}]}
+          current_time=$(date '+%Y-%m-%d %H:%M:%S')
+          git add rahasia.txt
+          git commit -m "$random_msg - $current_time" || echo "No changes to commit."
+
+      - name: Push changes
+        run: |
+          git push
